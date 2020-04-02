@@ -10,10 +10,6 @@ const ButtonStyles = css`
     color: black;
     border: 1px solid black;
   }
-
-  &:focus {
-    outline: none;
-  }
 `;
 
 const invertedButtonStyles = css`
@@ -31,7 +27,7 @@ const invertedButtonStyles = css`
 const googleSignInStyles = css`
   background-color: #4285f4;
   color: white;
-  border:none;
+  border: none;
 
   &:hover {
     background-color: #357ae8;
@@ -62,7 +58,9 @@ export const CustomButtonContainer = styled.button`
   display: flex;
   justify-content: center;
 
-  
+  &:focus {
+    outline: none;
+  }
 
   ${getButtonStyles}
 `;
