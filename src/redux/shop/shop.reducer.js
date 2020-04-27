@@ -23,7 +23,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
     case ShopActionTypes.FETCH_COLLECTIONS_FAILURE:
       return {
         ...state,
-        isFetching: false,
+        isFetching: true,
         errorMessage: action.payload,
       };
     default:

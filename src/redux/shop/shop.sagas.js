@@ -21,8 +21,12 @@ export function* fetchCollectionsAsync() {
       convertCollectionsSnapshotToMap,
       snapshot
     );
-
-    yield put(fetchCollectionsSuccess(collectionsMap));
+    console.log(collectionsMap);
+    if (JSON.stringify(collectionsMap) === "{}") {
+      throw Error("CollectionMap empty!!");
+    } else {
+      yield put(fetchCollectionsSuccess(collectionsMap));
+    }
   } catch (error) {
     yield put(fetchCollectionsFailure(error.message));
   }
