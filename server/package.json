@@ -11,7 +11,7 @@
     "build": "npm run build --prefix ../",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "start": "node server.js",
-    "heroku-postbuild": "cd.. npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    "heroku-postbuild": "npm install --prefix ../ && npm install --only=dev --no-shrinkwrap --prefix ../  && npm run build --prefix ../ "
   },
   "dependencies": {
     "body-parser": "^1.19.0",

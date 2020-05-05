@@ -22,10 +22,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "cd /build")));
+  app.use(express.static(path.join(__dirname, "build")));
 
   app.get("*", function (req, res) {
-    res.sendFile(path.join(__dirname, "cd /build", "index.html"));
+    res.sendFile(path.join(__dirname, "build", "index.html"));
   });
 }
 
@@ -34,6 +34,8 @@ app.listen(port, (error) => {
   console.log(`Server is running on ${port}`);
 });
 
+
+// console.log()
 app.post("/payment", (req, res) => {
   console.log(req.body);
   const body = {
