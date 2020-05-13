@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import "./sign-in.styles.scss";
+// import "./sign-in.styles.scss";
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
 // import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
-
+import {
+  ButtonContainer,
+  SignInContainer,
+  TitleContainer,
+} from "./sign-in.styles";
 import {
   googleSignInStart,
   emailSignInStart,
@@ -34,8 +38,8 @@ const SignIn = ({ emailSignInStart, googleSignInStart }) => {
   };
 
   return (
-    <div className="sign-in">
-      <h2>I already have an account</h2>
+    <SignInContainer>
+      <TitleContainer>I already have an account</TitleContainer>
       <span> Sign in with your email and password</span>
 
       <form onSubmit={handleSubmit}>
@@ -56,7 +60,7 @@ const SignIn = ({ emailSignInStart, googleSignInStart }) => {
           required
           label="Password"
         />
-        <div className="buttons">
+        <ButtonContainer>
           <CustomButton type="submit"> Sign In </CustomButton>
           <CustomButton
             type="button"
@@ -65,9 +69,9 @@ const SignIn = ({ emailSignInStart, googleSignInStart }) => {
           >
             Sign In with Google
           </CustomButton>
-        </div>
+        </ButtonContainer>
       </form>
-    </div>
+    </SignInContainer>
   );
 };
 

@@ -30,7 +30,7 @@ const ShopPage = ({ fetchCollectionsStart, match }) => {
   }, [fetchCollectionsStart]);
 
   return (
-    <div className="shop-page">
+    <div>
       <Suspense fallback={<Spinner></Spinner>}>
         <Route
           exact

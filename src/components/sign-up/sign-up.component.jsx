@@ -4,7 +4,11 @@ import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
 
 // import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
-
+import {
+  SignUpContainer,
+  TitleContainer,
+  ButtonContainer,
+} from "./sign-up.styles";
 import { signUpStart } from "../../redux/user/users.actions";
 import "./sign-up.styles.scss";
 
@@ -50,8 +54,8 @@ const SignUp = ({ signUpStart }) => {
   };
 
   return (
-    <div className="sign-up">
-      <h2 className="title">I don't have a account</h2>
+    <SignUpContainer>
+      <TitleContainer className="title">I don't have a account</TitleContainer>
       <span>Sign Up with your email and password</span>
       <form className="sign-up-form" onSubmit={handleSubmit}>
         <FormInput
@@ -89,10 +93,11 @@ const SignUp = ({ signUpStart }) => {
           label="Confirm Password"
           required
         ></FormInput>
-
-        <CustomButton type="submit">SIGN UP</CustomButton>
+        <ButtonContainer>
+          <CustomButton type="submit">SIGN UP</CustomButton>
+        </ButtonContainer>
       </form>
-    </div>
+    </SignUpContainer>
   );
 };
 
