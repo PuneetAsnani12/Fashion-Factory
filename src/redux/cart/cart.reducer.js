@@ -1,5 +1,10 @@
 import CartActionTypes from "./cart.types";
-import { addItemToCart, removeItemFromCart } from "./cart.utils";
+import UserActionTypes from "../user/user.types";
+import {
+  addItemToCart,
+  removeItemFromCart,
+  addSignInItems,
+} from "./cart.utils";
 const INITIAL_STATE = {
   hidden: true,
   cartItems: [],
@@ -33,6 +38,11 @@ const cartReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         cartItems: [],
+      };
+    case UserActionTypes.SIGN_IN_CART:
+      return {
+        ...state,
+        cartItems: addSignInItems(state.cartItems, action.payload.cartItems),
       };
     default:
       return state;

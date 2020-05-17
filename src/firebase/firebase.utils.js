@@ -16,10 +16,30 @@ const config = {
 
 firebase.initializeApp(config);
 
+export const updateCartItemsForSignedInUser = async (
+  currentUser,
+  cartItems
+) => {
+  const userRef = firestore.doc(`users/${currentUser.id}`);
+  const snapShot = await userRef.get();
+
+  if (snapShot.exists) {
+    try {
+      await userRef.set({
+        ...currentUser,
+        cartItems,
+      });
+    } catch (error) {
+      console.log("error updating items!", error);
+    }
+  }
+};
+
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) {
     return;
   }
+
   const userRef = firestore.doc(`users/${userAuth.uid}`);
   const snapShot = await userRef.get();
 

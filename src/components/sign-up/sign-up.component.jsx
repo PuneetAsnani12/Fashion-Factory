@@ -12,7 +12,10 @@ import {
 import { signUpStart } from "../../redux/user/users.actions";
 import "./sign-up.styles.scss";
 
-const SignUp = ({ signUpStart }) => {
+import { createStructuredSelector } from "reselect";
+import { selectCartItems } from "../../redux/cart/car.selectors";
+
+const SignUp = ({ signUpStart,cartItems }) => {
   const [userCredentials, setUserCredentials] = useState({
     displayName: "",
     email: "",
@@ -29,7 +32,7 @@ const SignUp = ({ signUpStart }) => {
       return;
     }
 
-    signUpStart({ email, password, displayName });
+    signUpStart({ email, password, displayName ,cartItems});
 
     // try {
     //   const { user } = await auth.createUserWithEmailAndPassword(
@@ -105,4 +108,8 @@ const mapDispatchToProps = (dispatch) => ({
   signUpStart: (userCredentials) => dispatch(signUpStart(userCredentials)),
 });
 
-export default connect(null, mapDispatchToProps)(SignUp);
+const mapStateToProps = createStructuredSelector({
+  cartItems: selectCartItems,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

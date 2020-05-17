@@ -10,13 +10,14 @@ import {
 import {
   signInSuccess,
   signInFailure,
-  signOutSuccess,
-  signOutFailure,
   signUpSuccess,
   signUpFailure,
+  signInCartFetch,
 } from "./users.actions";
 
-function* getSnapshotFromUserAuth(userAuth, additionalData) {
+import { updateCartOnSignOut } from "../cart/cart.sagas";
+
+function* getSnapshotFromUserAuth(userAuth, additionalData, flag = 0) {
   try {
     const userRef = yield call(
       createUserProfileDocument,
@@ -25,15 +26,22 @@ function* getSnapshotFromUserAuth(userAuth, additionalData) {
     );
     const userSnapshot = yield userRef.get();
     yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }));
+    if (flag === 1) {
+      yield put(signInCartFetch({ ...userSnapshot.data() }));
+    }
   } catch (error) {
     yield put(signInFailure(error));
   }
 }
 
-export function* signUpUser({ payload: { email, password, displayName } }) {
+export function* signUpUser({
+  payload: { email, password, displayName, cartItems },
+}) {
   try {
     const { user } = yield auth.createUserWithEmailAndPassword(email, password);
-    yield put(signUpSuccess({ user, additionalData: { displayName } }));
+    yield put(
+      signUpSuccess({ user, additionalData: { displayName, cartItems } })
+    );
   } catch (error) {
     alert(error);
     yield put(signUpFailure(error));
@@ -52,10 +60,10 @@ export function* onSignUpSuccess() {
   yield takeLatest(UserActionTypes.SIGN_UP_SUCCESS, signInAfterSignUp);
 }
 
-export function* signInWithGoogle() {
+export function* signInWithGoogle({ payload: cartItems }) {
   try {
     const { user } = yield auth.signInWithPopup(googleProvider);
-    yield getSnapshotFromUserAuth(user);
+    yield getSnapshotFromUserAuth(user, cartItems, 1);
   } catch (error) {
     yield put(signInFailure(error));
   }
@@ -68,7 +76,7 @@ export function* onGoogleSignInStart() {
 export function* signInWithEmail({ payload: { email, password } }) {
   try {
     const { user } = yield auth.signInWithEmailAndPassword(email, password);
-    yield getSnapshotFromUserAuth(user);
+    yield getSnapshotFromUserAuth(user, null, 1);
   } catch (error) {
     yield put(signInFailure(error));
   }
@@ -94,17 +102,8 @@ export function* onCheckUserSession() {
   yield takeLatest(UserActionTypes.CHECK_USER_SESSION, isUserAuthenticated);
 }
 
-export function* signOut() {
-  try {
-    yield auth.signOut();
-    yield put(signOutSuccess());
-  } catch (error) {
-    yield put(signOutFailure(error));
-  }
-}
-
 export function* onSignOutStart() {
-  yield takeLatest(UserActionTypes.SIGN_OUT_START, signOut);
+  yield takeLatest(UserActionTypes.SIGN_OUT_START, updateCartOnSignOut);
 }
 
 export function* userSaga() {

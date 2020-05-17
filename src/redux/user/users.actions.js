@@ -1,7 +1,8 @@
 import UserActionTypes from "./user.types";
 
-export const googleSignInStart = () => ({
+export const googleSignInStart = (cartItems) => ({
   type: UserActionTypes.GOOGLE_SIGN_IN_START,
+  payload: cartItems,
 });
 
 export const signInSuccess = (user) => ({
@@ -23,8 +24,9 @@ export const checkUserSession = () => ({
   type: UserActionTypes.CHECK_USER_SESSION,
 });
 
-export const signOutStart = () => ({
+export const signOutStart = ({ currentUser, cartItems }) => ({
   type: UserActionTypes.SIGN_OUT_START,
+  payload: { currentUser, cartItems },
 });
 
 export const signOutSuccess = () => ({
@@ -42,11 +44,16 @@ export const signUpStart = (userCredentials) => ({
 });
 
 export const signUpSuccess = ({ user, additionalData }) => ({
-  type: UserActionTypes.SIGN_IN_SUCCESS,
+  type: UserActionTypes.SIGN_UP_SUCCESS,
   payload: { user, additionalData },
 });
 
 export const signUpFailure = (error) => ({
   type: UserActionTypes.SIGN_UP_FAILURE,
   payload: error,
+});
+
+export const signInCartFetch = (userData) => ({
+  type: UserActionTypes.SIGN_IN_CART,
+  payload: userData,
 });
