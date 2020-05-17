@@ -1,8 +1,7 @@
 import UserActionTypes from "./user.types";
 
-export const googleSignInStart = (cartItems) => ({
+export const googleSignInStart = () => ({
   type: UserActionTypes.GOOGLE_SIGN_IN_START,
-  payload: cartItems,
 });
 
 export const signInSuccess = (user) => ({

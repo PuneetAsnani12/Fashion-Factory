@@ -26,7 +26,7 @@ function* getSnapshotFromUserAuth(userAuth, additionalData, flag = 0) {
     );
     const userSnapshot = yield userRef.get();
     yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }));
-    if (flag === 1) {
+    if (flag === 1 && userSnapshot.data().cartItems) {
       yield put(signInCartFetch({ ...userSnapshot.data() }));
     }
   } catch (error) {
@@ -60,10 +60,10 @@ export function* onSignUpSuccess() {
   yield takeLatest(UserActionTypes.SIGN_UP_SUCCESS, signInAfterSignUp);
 }
 
-export function* signInWithGoogle({ payload: cartItems }) {
+export function* signInWithGoogle() {
   try {
     const { user } = yield auth.signInWithPopup(googleProvider);
-    yield getSnapshotFromUserAuth(user, cartItems, 1);
+    yield getSnapshotFromUserAuth(user, null, 1);
   } catch (error) {
     yield put(signInFailure(error));
   }

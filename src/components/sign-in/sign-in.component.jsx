@@ -14,10 +14,7 @@ import {
   emailSignInStart,
 } from "../../redux/user/users.actions";
 
-import { createStructuredSelector } from "reselect";
-import { selectCartItems } from "../../redux/cart/car.selectors";
-
-const SignIn = ({ emailSignInStart, googleSignInStart, cartItems }) => {
+const SignIn = ({ emailSignInStart, googleSignInStart }) => {
   const [userCredentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -67,7 +64,7 @@ const SignIn = ({ emailSignInStart, googleSignInStart, cartItems }) => {
           <CustomButton type="submit"> Sign In </CustomButton>
           <CustomButton
             type="button"
-            onClick={() => googleSignInStart(cartItems)}
+            onClick={googleSignInStart}
             isGoogleSignIn
           >
             Sign In with Google
@@ -79,13 +76,9 @@ const SignIn = ({ emailSignInStart, googleSignInStart, cartItems }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  googleSignInStart: (cartItems) => dispatch(googleSignInStart(cartItems)),
+  googleSignInStart: () => dispatch(googleSignInStart()),
   emailSignInStart: (email, password) =>
     dispatch(emailSignInStart({ email, password })),
 });
 
-const mapStateToProps = createStructuredSelector({
-  cartItems: selectCartItems,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(null, mapDispatchToProps)(SignIn);
