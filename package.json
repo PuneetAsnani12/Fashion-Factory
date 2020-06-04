@@ -5,7 +5,7 @@
   "proxy": "http://localhost:5000",
   "dependencies": {
     "@testing-library/jest-dom": "^5.5.0",
-    "@testing-library/react": "^10.0.3",
+    "@testing-library/react": "^10.1.0",
     "@testing-library/user-event": "^10.1.0",
     "axios": "^0.19.2",
     "firebase": "^7.14.3",
