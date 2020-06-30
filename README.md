@@ -1,5 +1,5 @@
 ## Official Github Repository for Fashion-Factory
- Fashion Factory is the ultimate destination for fashion and lifestyle, being host to a wide array of merchandise including clothing, footwear and accessories.
+ Fashion Factory is the ultimate destination for fashion and lifestyle, being host to a wide array of merchandise including clothing, footwear ,and accessories.
 
 ## Official Website for Fashion-Factory 
 https://fashion-factory.netlify.app/
